@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konversi Nilai & Kalkulator Sederhana</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: gray;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .wrapper {
+            background-color: lightyellow;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="button"] {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+        input[type="text"]:read-only {
+            background-color: #e9ecef;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+    <script>
+        function konversiNilai() {
+            var nilai = parseInt(document.getElementById("nilaiAngka").value);
+            var hurufMutu = "Nilai tidak valid!";
+
+            if (!isNaN(nilai)) {
+                if (nilai >= 0 && nilai <= 40) {
+                    hurufMutu = "E";
+                } else if (nilai >= 41 && nilai <= 55) {
+                    hurufMutu = "D";
+                } else if (nilai >= 56 && nilai <= 60) {
+                    hurufMutu = "C";
+                } else if (nilai >= 61 && nilai <= 65) {
+                    hurufMutu = "BC";
+                } else if (nilai >= 66 && nilai <= 70) {
+                    hurufMutu = "B";
+                } else if (nilai >= 71 && nilai <= 80) {
+                    hurufMutu = "AB";
+                } else if (nilai >= 81 && nilai <= 100) {
+                    hurufMutu = "A";
+                }
+            }
+
+            document.getElementById("hurufMutu").value = hurufMutu;
+        }
+
+        function hitung(operator) {
+            var bil1 = parseFloat(document.getElementById("bil1").value);
+            var bil2 = parseFloat(document.getElementById("bil2").value);
+            var hasil = "Tidak valid";
+
+            if (!isNaN(bil1) && !isNaN(bil2)) {
+                switch (operator) {
+                    case '+':
+                        hasil = bil1 + bil2;
+                        break;
+                    case '-':
+                        hasil = bil1 - bil2;
+                        break;
+                    case '*':
+                        hasil = bil1 * bil2;
+                        break;
+                    case '/':
+                        hasil = bil1 / bil2;
+                        break;
+                }
+            }
+
+            document.getElementById("hasil").value = hasil;
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h2>Konversi Nilai Angka ke Nilai Huruf</h2>
+            <label for="nilaiAngka">Masukkan Nilai Angka (0-100):</label>
+            <input type="number" id="nilaiAngka" min="0" max="100" placeholder="Masukkan angka">
+            <input type="button" value="Konversi" onclick="konversiNilai()">
+            <label for="hurufMutu">Huruf Mutu:</label>
+            <input type="text" id="hurufMutu" readonly>
+        </div>
+
+        <div class="container">
+            <h2>Kalkulator Sederhana</h2>
+            <label for="bil1">Bilangan 1:</label>
+            <input type="number" id="bil1" placeholder="Masukkan bilangan pertama">
+            <label for="bil2">Bilangan 2:</label>
+            <input type="number" id="bil2" placeholder="Masukkan bilangan kedua">
+            <div>
+                <input type="button" value="+" onclick="hitung('+')">
+                <input type="button" value="-" onclick="hitung('-')">
+                <input type="button" value="x" onclick="hitung('*')">
+                <input type="button" value="/" onclick="hitung('/')">
+            </div>
+            <label for="hasil">Hasil:</label>
+            <input type="text" id="hasil" readonly>
+        </div>
+    </div>
+</body>
+</html>
